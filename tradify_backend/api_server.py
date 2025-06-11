@@ -88,9 +88,9 @@ def update_config():
 
 @app.route('/api/chart/<symbol>', methods=['GET'])
 def get_chart_data(symbol):
-    info = mt5.symbol_info("DXY")
+    info = mt5.symbol_info("GBPUSD")
     if info is None:
-        print("DXY is not a valid symbol on this account.")
+        print("GBPUSD is not a valid symbol on this account.")
     else:
         print(info)
 

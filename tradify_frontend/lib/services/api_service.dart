@@ -53,7 +53,7 @@ if (tradesData is List) {
       }
 
       // Fetch chart data
-      for (var symbol in ['EURUSD', 'DXY']) {
+      for (var symbol in ['EURUSD', 'GBPUSD']) {
         final chartResponse = await http.get(Uri.parse('$_apiUrl/api/chart/$symbol'));
         if (chartResponse.statusCode == 200) {
           _chartData[symbol] = List<Map<String, dynamic>>.from(json.decode(chartResponse.body));

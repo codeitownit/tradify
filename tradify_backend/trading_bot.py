@@ -16,7 +16,7 @@ from sklearn.metrics import accuracy_score
 class ForexTradingBot:
     def __init__(self):
         # Initialize configuration
-        self.symbols = ['EURUSD', 'GBPUSD', 'DXY']
+        self.symbols = ['EURUSD', 'GBPUSD', 'GBPUSD']
         self.trading_hours = self.get_current_session_hours()
         self.timeframe = mt5.TIMEFRAME_M15
         self.lot_size = 0.1  # Default, can be changed via frontend
@@ -189,7 +189,7 @@ class ForexTradingBot:
                     'time': df['time'][i]
                 }
                 # Round to appropriate decimal places
-                if 'DXY' in df['symbol'].iloc[0]:
+                if 'GBPUSD' in df['symbol'].iloc[0]:
                     level['price'] = round(level['price'], 3)
                     if level['price'] * 1000 % 10 == 0:  # Third decimal is 0
                         levels.append(level)
@@ -206,7 +206,7 @@ class ForexTradingBot:
                     'time': df['time'][i]
                 }
                 # Round to appropriate decimal places
-                if 'DXY' in df['symbol'].iloc[0]:
+                if 'GBPUSD' in df['symbol'].iloc[0]:
                     level['price'] = round(level['price'], 3)
                     if level['price'] * 1000 % 10 == 0:  # Third decimal is 0
                         levels.append(level)
@@ -298,7 +298,7 @@ class ForexTradingBot:
             for level in levels:
                 # Check price is near level (within 5 pips)
                 current_price = df.iloc[-1]['close']
-                pip_size = 0.0001 if 'DXY' not in symbol else 0.001
+                pip_size = 0.0001 if 'GBPUSD' not in symbol else 0.001
                 
                 if abs(current_price - level['price']) <= 5 * pip_size:
                     # Check for engulfing pattern or consecutive candles
@@ -318,14 +318,14 @@ class ForexTradingBot:
                             if level['type'] == 'support':
                                 signals.append({
                                     'symbol': symbol,
-                                    'direction': 'bullish' if symbol == 'DXY' else 'bearish',
+                                    'direction': 'bullish' if symbol == 'GBPUSD' else 'bearish',
                                     'level': level,
                                     'confidence': prediction
                                 })
                             else:  # resistance
                                 signals.append({
                                     'symbol': symbol,
-                                    'direction': 'bearish' if symbol == 'DXY' else 'bullish',
+                                    'direction': 'bearish' if symbol == 'GBPUSD' else 'bullish',
                                     'level': level,
                                     'confidence': prediction
                                 })
@@ -335,8 +335,8 @@ class ForexTradingBot:
             # For now, just take the first signal
             signal = signals[0]
             
-            # Determine trade direction based on DXY or EURUSD signal
-            if signal['symbol'] == 'DXY':
+            # Determine trade direction based on GBPUSD or EURUSD signal
+            if signal['symbol'] == 'GBPUSD':
                 return {
                     'action': 'open',
                     'symbols': ['EURUSD', 'GBPUSD'],

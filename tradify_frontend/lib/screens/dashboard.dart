@@ -43,7 +43,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
           children: [
             const ChartWidget(symbol: 'EURUSD'),
             FutureBuilder<bool>(
-              future: apiService.isSymbolAvailable('DXY'),
+              future: apiService.isSymbolAvailable('GBPUSD'),
               builder: (context, snapshot) {
                 if (snapshot.connectionState == ConnectionState.waiting) {
                   return const Center(child: CircularProgressIndicator());
@@ -52,12 +52,12 @@ class _DashboardScreenState extends State<DashboardScreen> {
                   return const Padding(
                     padding: EdgeInsets.all(16.0),
                     child: Text(
-                      'DXY chart is not available on your account.',
+                      'GBPUSD chart is not available on your account.',
                       style: TextStyle(color: Colors.red),
                     ),
                   );
                 }
-                return const ChartWidget(symbol: 'DXY');
+                return const ChartWidget(symbol: 'GBPUSD');
               },
             ),
             const SizedBox(height: 20),

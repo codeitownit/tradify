@@ -17,9 +17,16 @@ class ChartWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     final apiService = Provider.of<ApiService>(context);
     final data = apiService.getChartData(symbol);
-
+     
+    // final candleData = data.map((d) => CandleStick(
+    //   time: d['time'],
+    //   open: d['open'],
+    //   high: d['high'],
+    //   low: d['low'],
+    //   close: d['close'],
+    // )).toList();
     final candleData = data.map((d) => CandleStick(
-      time: d['time'],
+      time: DateTime.tryParse(d['time']) ?? DateTime.now(), // ✅ parse the string into DateTime
       open: d['open'],
       high: d['high'],
       low: d['low'],
